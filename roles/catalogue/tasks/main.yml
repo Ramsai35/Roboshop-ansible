@@ -1,0 +1,45 @@
+- name: Configuring NODEJS
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install NodeJS
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed
+
+- name: useradd
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Remove directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: Creating directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Downloading Web Content
+  ansible.builtin.unarchive:
+    src: curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
+    dest: /tmp/catalogue.zip
+    remote_src: yes
+
+- name: Install Modejs Dependies
+  community.general.npm:
+    path: /app
+    state: latest
+
+- name: Copy file
+  ansible.builtin.copy:
+    src: catalogue.conf
+    dest: /etc/systemd/system/catalogue.service
+
+- name: starting Systemd
+  ansible.builtin.systemd:
+    name: catalogue
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+
