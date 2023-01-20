@@ -23,10 +23,10 @@
 - name: Downloading Web Content
   ansible.builtin.unarchive:
     src: curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
-    dest: /tmp/catalogue.zip
+    dest: cd /app
     remote_src: yes
 
-- name: Install Modejs Dependies
+- name: Install Nodejs Dependies
   community.general.npm:
     path: /app
     state: latest
