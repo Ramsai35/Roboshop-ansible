@@ -50,7 +50,7 @@
 
 - name: Install Mongodb
   ansible.builtin.yum:
-    name: mongodb-org
+    name: mongodb-org-shell
     state: installed
 
 - name: Scehma-Load
