@@ -43,6 +43,16 @@
     enabled: yes
     state: restarted
 
+- name: Copy file
+  ansible.builtin.copy:
+    src: mongodb.conf
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install Mongodb
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
+
 - name: Scehma-Load
   community.mongodb.mongodb_shell:
     login_host: mongodb-dev.ramdevops35.online
