@@ -43,3 +43,14 @@
     enabled: yes
     state: restarted
 
+- name: Scehma-Load
+  community.mongodb.mongodb_shell:
+    login_host: mongodb-dev.ramdevops35.online
+    file: "/app/schema/catalogue.js"
+    idempotent: yes
+
+
+
+
+
+
