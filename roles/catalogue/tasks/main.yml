@@ -45,7 +45,7 @@
 
 - name: Copy file
   ansible.builtin.copy:
-    src: mongodb.conf
+    src: mongodb.repo
     dest: /etc/yum.repos.d/mongo.repo
 
 - name: Install Mongodb
