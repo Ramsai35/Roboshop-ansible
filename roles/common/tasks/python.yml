@@ -1,0 +1,22 @@
+- name: Python Installation
+  ansible.builtin.yum:
+    name:
+      - python36
+      - gcc
+      - python3-devel
+    state: installed
+
+- name: Include task list in play only if the condition is true
+  ansible.builtin.include_tasks: "appprereq.yml"
+
+- name: Download Python Dependies
+  ansible.builtin.pip:
+    requirements: /app/requirement.txt
+    executable: pip3.6
+
+- name: SystemD Setup
+  ansible.builtin.include_tasks: "systemd.yml"
+
+- name: Load Schema
+  ansible.builtin.include_tasks: "{{schema_type}}-schema.yml"
+  when: schema_load
