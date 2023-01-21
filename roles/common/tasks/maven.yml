@@ -1,27 +1,21 @@
-- name: Configuring NODEJS
-  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-
-- name: Install NodeJS
+- name: Install Maven
   ansible.builtin.yum:
-    name: nodejs
+    name: maven
     state: installed
 
 - name: Include task list in play only if the condition is true
   ansible.builtin.include_tasks: "appprereq.yml"
 
 
-- name: Install Nodejs Dependies
-  community.general.npm:
-    path: /app
-    state: latest
+- name: mvn clean package
+  ansible.builtin.shell: mvn clean package
+  args:
+    chdir: /app
 
-
+- name: Include task list in play only if the condition is true
+  ansible.builtin.include_tasks: "systemd.yml"
 
 - name: Include task list in play only if the condition is true
   ansible.builtin.include_tasks: "{{schema_type}}-schema.yaml"
   when: schema_load
-
-
-
-
 
