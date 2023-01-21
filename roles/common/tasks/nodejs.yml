@@ -45,7 +45,7 @@
 
 - name: Include task list in play only if the condition is true
   ansible.builtin.include_tasks: "{{schema_type}}-schema.yaml"
-  when: schema_type
+  when: schema_load
 
 
 
