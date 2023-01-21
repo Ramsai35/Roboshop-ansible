@@ -20,7 +20,7 @@
 
 - name: Downloading Web Content
   ansible.builtin.unarchive:
-    src: https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
+    src: https://roboshop-artifacts.s3.amazonaws.com/{[component}}ue.zip
     dest: /app
     remote_src: yes
 
