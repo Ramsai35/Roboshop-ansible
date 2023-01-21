@@ -1,0 +1,15 @@
+- name: Copy file
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install Mongodb
+  ansible.builtin.yum:
+    name: mongodb-org-shell
+    state: installed
+
+- name: Scehma-Load
+  community.mongodb.mongodb_shell:
+    login_host: mongodb-dev.ramdevops35.online
+    file: "/app/schema/{{component}}.js"
+    idempotent: yes
