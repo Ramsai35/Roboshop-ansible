@@ -1,10 +1,7 @@
 - name: Configuring NODEJS
   ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
-- name: Install NodeJS
-  ansible.builtin.yum:
-    name: nodejs
-    state: installed
+
 
 - name: Include task list in play only if the condition is true
   ansible.builtin.include_tasks: "appprereq.yml"
