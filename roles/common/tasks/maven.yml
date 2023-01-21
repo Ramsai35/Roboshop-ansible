@@ -3,19 +3,18 @@
     name: maven
     state: installed
 
-- name: Include task list in play only if the condition is true
+- name: App Pre-Req
   ansible.builtin.include_tasks: "appprereq.yml"
 
-
 - name: Maven Build
-  ansible.builtin.shell: mvn clean package ; mv target/{{component}}-1.0.jar  {{component}}.jar
+  ansible.builtin.shell: mvn clean package ; mv target/{{component}}-1.0.jar {{component}}.jar
   args:
     chdir: /app
 
-- name: Include task list in play only if the condition is true
+- name: SystemD Setup
   ansible.builtin.include_tasks: "systemd.yml"
 
-- name: Include task list in play only if the condition is true
-  ansible.builtin.include_tasks: "{{schema_type}}-schema.yaml"
+- name: Load Schema
+  ansible.builtin.include_tasks: "{{schema_type}}-schema.yml"
   when: schema_load
 
